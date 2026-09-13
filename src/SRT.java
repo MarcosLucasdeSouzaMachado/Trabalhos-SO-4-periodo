@@ -1,25 +1,67 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-class ProcessoSRT {
-    int id, chegada, burst, restante, conclusao, espera, turnaround;
-    /*
-        burst vai ser o tempo total de execução necessario
-        restante é o tempo restante de execução
-    */
 
-    public ProcessoSRT(int id, int chegada, int burst) {
-        this.id = id;
-        this.chegada = chegada;
-        this.burst = burst;
-        this.restante = burst;
-    }
-}
 public class SRT {
     public static void exec(List<ProcessoEscalonador> processos){
+        for (ProcessoEscalonador p:processos){
+            p.resetar();
+        }
 
+        int n=processos.size();
+        int procesComplet=0;
+        int tempAtual=0;
+
+        while (procesComplet<n) {
+            int indMen = -1;
+            int menTemp = Integer.MAX_VALUE;
+
+            for (int i=0; i<n; i++){
+                ProcessoEscalonador p=processos.get(i);
+                if (p.chegada<=tempAtual && p.restante>0 && p.restante<menTemp){
+                    menTemp = p.restante;
+                    indMen = i;
+                }
+            }
+            //avanço de tempo
+            if (indMen == -1){
+                tempAtual++;
+                continue;
+            }
+            //executore
+            ProcessoEscalonador p=processos.get(indMen);
+            p.restante--;
+            tempAtual++;
+            //finalização
+            if (p.restante==0){
+                p.conclusao=tempAtual;
+                p.turnaround=p.conclusao- p.chegada;
+                p.espera=p.turnaround-p.burst;
+                procesComplet++;
+            }
+        }
     }
-    public static void main(String[] args) {
+    public static double getTempoRespostaMedio(List<ProcessoEscalonador> processos) {
+        double soma=0;
+        for (ProcessoEscalonador p:processos){
+            soma+=(p.conclusao - p.burst-p.chegada);
+        }
+        return soma/processos.size();
+    }
+    public static double getTempoEsperaMedio(List<ProcessoEscalonador> processos){
+        double soma =0;
+        for (ProcessoEscalonador p:processos){
+            soma +=p.espera;
+        }
+        return soma/processos.size();
+    }
+    public static double getTempoTurnaroundmedio(List<ProcessoEscalonador> processos) {
+        double soma=0;
+        for (ProcessoEscalonador p:processos){
+            soma += p.turnaround;
+        }
+        return soma/ processos.size();
+    }
+    /*public static void main(String[] args) {
         List<ProcessoSRT> processos = new ArrayList<>();
         //processos usados de teste abaixo
         processos.add(new ProcessoSRT(1, 0, 7));
@@ -73,7 +115,8 @@ public class SRT {
 
         System.out.println("\nTempo médio de espera: " + (TtlEsp/n));
         System.out.println("Tempo médio de turnaround: " + (TtlTurnaround/n));
-    }
+    }*/
 
 
 }
+
