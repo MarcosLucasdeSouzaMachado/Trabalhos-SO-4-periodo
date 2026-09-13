@@ -54,7 +54,7 @@ public class SRT {
         }
         return soma/processos.size();
     }
-    public static double getTempoTurnaroundmedio(List<ProcessoEscalonador> processos) {
+    public static double getTempoTurnaroundMedio(List<ProcessoEscalonador> processos) {
         double soma=0;
         for (ProcessoEscalonador p:processos){
             soma += p.turnaround;

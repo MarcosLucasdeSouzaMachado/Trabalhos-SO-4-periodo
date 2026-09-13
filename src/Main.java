@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             for (int i=1; i<=10; i++) {
-                String nomeEntrada = String.format("TESTE-%02d%.txt", i);
-                String nomeSaida= String.format("TESTE-%02D%-RESULTADO.txt", i);
+                String nomeEntrada = String.format("TESTE-%02d.txt", i);
+                String nomeSaida= String.format("TESTE-%02D-RESULTADO.txt", i);
 
                 System.out.println("Processando " + nomeEntrada + "...");
                 //Ler arquivos
@@ -32,7 +32,7 @@ public class Main {
                 SRT.executar(processos);
                 double respSRT = SRT.getTempoRespostaMedio(processos);
                 double espSRT = SRT.getTempoEsperaMedio(processos);
-                double turnSRT = SRT.getTempoTurnaroundmedio(processos);
+                double turnSRT = SRT.getTempoTurnaroundMedio(processos);
 
                 //adicionar RR aqui
 
