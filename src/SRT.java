@@ -2,7 +2,7 @@ import java.util.*;
 
 
 public class SRT {
-    public static void exec(List<ProcessoEscalonador> processos){
+    public static void executar(List<ProcessoEscalonador> processos){
         for (ProcessoEscalonador p:processos){
             p.resetar();
         }

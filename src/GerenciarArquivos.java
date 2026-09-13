@@ -6,7 +6,7 @@ public class GerenciarArquivos {
         List<ProcessoEscalonador> processos = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
             String primaLinha = reader.readLine();
-            int r = Integer.parseInt(primaLinha.trim());
+            int quantum = Integer.parseInt(primaLinha.trim());
             String linha;
             int id=1;
             while ((linha = reader.readLine())!=null) {
@@ -23,7 +23,7 @@ public class GerenciarArquivos {
         return processos;
     }
 
-    public static void escreverArquivos(String nomeArquivo,
+    public static void escreverArquivos(String nomeSaida,
                                         double tempRespMedioFIFO,
                                         double tempEspMedioFIFO,
                                         double tempTurnMedioFIFO,
@@ -36,11 +36,12 @@ public class GerenciarArquivos {
                                         double tempRespMedioRR,
                                         double tempEspMedioRR,
                                         double tempTurnMedioRR) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo))){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nomeSaida))){
             writer.printf("%.0f %.3f %.3f\n", tempRespMedioFIFO, tempEspMedioFIFO, tempTurnMedioFIFO);
             writer.printf("%.0f %.3f %.3f\n", tempRespMedioSJF, tempEspMedioSJF, tempTurnMedioSJF);
             writer.printf("%.0f %.3f %.3f\n", tempRespMedioSRT, tempEspMedioSRT, tempTurnMedioSRT);
             writer.printf("%.0f %.3f %.3f\n", tempRespMedioRR, tempEspMedioRR, tempTurnMedioRR);
         }
     }
+
 }
