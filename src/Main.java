@@ -6,14 +6,13 @@ public class Main {
         try {
             for (int i=1; i<=10; i++) {
                 String nomeEntrada = String.format("TESTE-%02d.txt", i);
-                String nomeSaida= String.format("TESTE-%02D-RESULTADO.txt", i);
+                String nomeSaida= String.format("TESTE-%02d-RESULTADO.txt", i);
 
                 System.out.println("Processando " + nomeEntrada + "...");
                 //Ler arquivos
                 List<ProcessoEscalonador> processos = GerenciarArquivos.lerArquivo(nomeEntrada);
                 if (processos.isEmpty()) {
-                    //lembrar de remover o imbecil
-                    System.out.println("SEM ARQUIVO INSIRA UM PENDRIVE SEU IMBECIL");
+                    System.out.println("SEM ARQUIVO INSIRA UM PENDRIVE");
                     continue;
                 }
                 // usar isso aqui pra definir o quantum que está em gerenciar arquivos pfvr.
@@ -22,6 +21,7 @@ public class Main {
                 //Executar os algoritimos
 
                 //adicionar FIFO aqui
+
 
                 //SJF
                 SJF.executar(processos);

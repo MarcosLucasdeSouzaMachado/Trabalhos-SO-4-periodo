@@ -6,9 +6,8 @@ public class GerenciarArquivos {
         List<ProcessoEscalonador> processos = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
             String primaLinha = reader.readLine();
-            int quantum = Integer.parseInt(primaLinha.trim());
+            float quantum = Integer.parseInt(primaLinha.trim());
             String linha;
-            int id=1;
             while ((linha = reader.readLine())!=null) {
                 linha = linha.trim();
                 if (linha.isEmpty()) continue;
@@ -17,7 +16,7 @@ public class GerenciarArquivos {
                 int chegada=Integer.parseInt(partes[0]);
                 int burst=Integer.parseInt(partes[1]);
 
-                processos.add(new ProcessoEscalonador(id++, chegada, burst));
+                processos.add(new ProcessoEscalonador( chegada, burst));
             }
         }
         return processos;
@@ -37,10 +36,10 @@ public class GerenciarArquivos {
                                         double tempEspMedioRR,
                                         double tempTurnMedioRR) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nomeSaida))){
-            writer.printf("%.0f %.3f %.3f\n", tempRespMedioFIFO, tempEspMedioFIFO, tempTurnMedioFIFO);
-            writer.printf("%.0f %.3f %.3f\n", tempRespMedioSJF, tempEspMedioSJF, tempTurnMedioSJF);
-            writer.printf("%.0f %.3f %.3f\n", tempRespMedioSRT, tempEspMedioSRT, tempTurnMedioSRT);
-            writer.printf("%.0f %.3f %.3f\n", tempRespMedioRR, tempEspMedioRR, tempTurnMedioRR);
+            writer.printf("%.3f %.3f %.3f\n", tempRespMedioFIFO, tempEspMedioFIFO, tempTurnMedioFIFO);
+            writer.printf("%.3f %.3f %.3f\n", tempRespMedioSJF, tempEspMedioSJF, tempTurnMedioSJF);
+            writer.printf("%.3f %.3f %.3f\n", tempRespMedioSRT, tempEspMedioSRT, tempTurnMedioSRT);
+            writer.printf("%.3f %.3f %.3f\n", tempRespMedioRR, tempEspMedioRR, tempTurnMedioRR);
         }
     }
 
