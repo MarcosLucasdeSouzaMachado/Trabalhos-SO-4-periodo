@@ -5,37 +5,48 @@ public class Main {
     public static void main(String[] args) {
         try {
             for (int i=1; i<=10; i++) {
-                String nomeEntrada = String.format("TESTE-%02d.txt", i);
-                String nomeSaida= String.format("TESTE-%02d-RESULTADO.txt", i);
+                String nomeEntrada = String.format("D://TESTE-%02d.txt", i);
+                String nomeSaida= String.format("D://ESTE-%02d-RESULTADO.txt", i);
 
                 System.out.println("Processando " + nomeEntrada + "...");
                 //Ler arquivos
-                List<ProcessoEscalonador> processos = GerenciarArquivos.lerArquivo(nomeEntrada);
+                 
+                Map<List<ProcessoEscalonador>, Float> retorno = GerenciarArquivos.lerArquivo(nomeEntrada);
+                Iterator<Map.Entry<List<ProcessoEscalonador>, Float>> iterator = retorno.entrySet().iterator();
+                Map.Entry<List<ProcessoEscalonador>, Float> entrada = iterator.next();
+                List<ProcessoEscalonador> processos = entrada.getKey();
+                Float quantum = entrada.getValue();
+
                 if (processos.isEmpty()) {
-                    System.out.println("SEM ARQUIVO INSIRA UM PENDRIVE");
+                    System.out.println("SEM ARQUIVO, INSIRA UM PENDRIVE");
                     continue;
                 }
-                // usar isso aqui pra definir o quantum que está em gerenciar arquivos pfvr.
-                //int quantum = GerenciarArquivos.lerArquivo();
 
                 //Executar os algoritimos
-
-                //adicionar FIFO aqui
-
-
+                //FIFO 
+                FIFO escalonadorFifo = new FIFO(processos);
+                escalonadorFifo.escalonar();
+                float respFIFO = escalonadorFifo.temp_resp_med; 
+                float espFIFO = escalonadorFifo.temp_esp_med;
+                float turnFIFO = escalonadorFifo.turnaround_med;
                 //SJF
-                SJF.executar(processos);
-                double respSJF = SJF.getTempoRespostaMedio(processos);
-                double espSJF = SJF.getTempoEsperaMedio(processos);
-                double turnSJF = SJF.getTempoTurnaroundMedio(processos);
+                SJF escalonadorSJF = new SJF(processos);
+                escalonadorSJF.executar();
+                float respSJF = escalonadorSJF.getTempoRespostaMedio();
+                float espSJF = escalonadorSJF.getTempoEsperaMedio();
+                float turnSJF = escalonadorSJF.getTempoTurnaroundMedio();
                 //SRT
-                SRT.executar(processos);
-                double respSRT = SRT.getTempoRespostaMedio(processos);
-                double espSRT = SRT.getTempoEsperaMedio(processos);
-                double turnSRT = SRT.getTempoTurnaroundMedio(processos);
-
-                //adicionar RR aqui
-
+                SRT escalonadorSRT = new SRT(processos);
+                escalonadorSRT.executar();
+                float respSRT = escalonadorSRT.getTempoRespostaMedio();
+                float espSRT = escalonadorSRT.getTempoEsperaMedio();
+                float turnSRT = escalonadorSRT.getTempoTurnaroundMedio();
+                //RR
+                RR escalonadorRR = new RR(processos, quantum);
+                escalonadorRR.escalonar();
+                float respRR = escalonadorRR.temp_resp_med; 
+                float espRR = escalonadorRR.temp_esp_med;
+                float turnRR = escalonadorRR.turnaround_med;
                 //escritor de resultados
                 GerenciarArquivos.escreverArquivos(nomeSaida,
                         respFIFO, espFIFO, turnFIFO,
