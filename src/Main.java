@@ -6,7 +6,7 @@ public class Main {
         try {
             for (int i=1; i<=10; i++) {
                 String nomeEntrada = String.format("D://TESTE-%02d.txt", i);
-                String nomeSaida= String.format("D://ESTE-%02d-RESULTADO.txt", i);
+                String nomeSaida= String.format("D://TESTE-%02d-RESULTADO.txt", i);
 
                 System.out.println("Processando " + nomeEntrada + "...");
                 //Ler arquivos

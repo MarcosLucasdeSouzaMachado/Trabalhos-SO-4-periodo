@@ -11,8 +11,8 @@ public class RR {
     public float turnaround_med;// chegada a conclusão total
 
     public RR(List<ProcessoEscalonador> processos, Float quantum) {
-        for (ProcessoEscalonador processo : processos) {
-            processo.resetar();
+                for (ProcessoEscalonador processo : processos) {
+                    processo.resetar();
         }
         this.processos = processos;
         temp_esp_med = 0;
