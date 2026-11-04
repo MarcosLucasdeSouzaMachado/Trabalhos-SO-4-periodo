@@ -9,11 +9,11 @@ public class Main {
 
                 EntradaMemoria entrada = GerenciarArquivos.lerArquivo(nomeEntrada);
 
-                //Otimo otimo = new Otimo();
-                //int faltasOtimo = otimo.calcular(entrada);
+                Otimo otimo = new Otimo();
+                int faltasOtimo = otimo.calcular(entrada);
 
-                //NRU nru = new NRU();
-                //int faltasNRU = nru.calcular(entrada);
+                NRU nru = new NRU();
+                int faltasNRU = nru.calcular(entrada);
 
                 Relogio relogio = new Relogio();
                 int faltasRelogio = relogio.calcular(entrada);
@@ -22,8 +22,8 @@ public class Main {
                 int faltasWSClock = wsClock.calcular(entrada);
 
                 GerenciarArquivos.escreverArquivos(nomeSaida,
-                        //faltasOtimo,
-                        //faltasNRU,
+                        faltasOtimo,
+                        faltasNRU,
                         faltasRelogio,
                         faltasWSClock);
 
